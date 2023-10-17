@@ -1,0 +1,89 @@
+<!DOCTYPE html><!DOCTYPE html>
+<html>
+<head>
+    <title>Kalkulator</title>
+    <link rel="stylesheet" type="text/css" href="styl.css">
+</head>
+<body>
+    
+</body>
+
+
+<body>
+    <h1>Kalkulator</h1>
+    <input type="text" id="display" readonly>
+    <br>
+    <button onclick="appendToDisplay('7')">7</button>
+    <button onclick="appendToDisplay('8')">8</button>
+    <button onclick="appendToDisplay('9')">9</button>
+    <button onclick="clearDisplay()">C</button>
+    <br>
+    <button onclick="appendToDisplay('4')">4</button>
+    <button onclick="appendToDisplay('5')">5</button>
+    <button onclick="appendToDisplay('6')">6</button>
+    <button onclick="appendOperator('+')">+</button>
+    <br>
+    <button onclick="appendToDisplay('1')">1</button>
+    <button onclick="appendToDisplay('2')">2</button>
+    <button onclick="appendToDisplay('3')">3</button>
+    <button onclick="appendOperator('-')">-</button>
+    <br>
+    <button onclick="appendToDisplay('0')">0</button>
+    <button onclick="appendOperator('*')">*</button>
+    <button onclick="appendOperator('/')">/</button>
+    <button onclick="calculateResult()">=</button>
+    <br>
+    <button onclick="appendOperator('^')">^</button>
+    <button onclick="appendOperator('sqrt')">√</button>
+</body>
+<script>
+    let display = document.getElementById('display');
+    let currentInput = '';
+    let operator = '';
+
+    function appendToDisplay(value) {
+        currentInput += value;
+        display.value = currentInput;
+    }
+
+    function appendOperator(op) {
+        if (currentInput !== '') {
+            currentInput += ' ' + op + ' ';
+            operator = op;
+            display.value = currentInput;
+        }
+    }
+
+    function calculateResult() {
+        if (currentInput !== '') {
+            const values = currentInput.split(' ');
+            const num1 = parseFloat(values[0]);
+            const num2 = parseFloat(values[2]);
+            let result = 0;
+
+            if (operator === '+') {
+                result = num1 + num2;
+            } else if (operator === '-') {
+                result = num1 - num2;
+            } else if (operator === '*') {
+                result = num1 * num2;
+            } else if (operator === '/') {
+                result = num1 / num2;
+            } else if (operator === '^') {
+                result = Math.pow(num1, num2);
+            } else if (operator === 'sqrt') {
+                result = Math.sqrt(num1);
+            }
+
+            display.value = result;
+            currentInput = '';
+        }
+    }
+
+    function clearDisplay() {
+        currentInput = '';
+        operator = '';
+        display.value = '';
+    }
+</script>
+</html>
